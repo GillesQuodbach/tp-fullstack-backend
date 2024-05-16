@@ -2,7 +2,8 @@ package fr.fms.apitrainings.web;
 
 import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.entities.Customer;
-import fr.fms.apitrainings.entities.Commande;
+import fr.fms.apitrainings.entities.Order;
+import fr.fms.apitrainings.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.Objects;
 @CrossOrigin("*")
 /*@CrossOrigin("http://localhost:4200/")*/
 @RestController
-@RequestMapping("/api")
+/*@RequestMapping("/api")*/
 public class OrderController {
 
     @Autowired
@@ -31,12 +32,18 @@ public class OrderController {
                 .path("/{id}")
                 .buildAndExpand(savedCustomer.getId())
                 .toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(savedCustomer);
+    }
+
+    @GetMapping("/customers/{id}")
+    public Customer getCustomerById(@PathVariable("id") Long id) {
+        return iBusiness.getCustomerById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Id de client " + id + " n'éxiste pas"));
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Commande> savCustomer(@RequestBody Commande order) {
-        Commande savedOrder = iBusiness.saveOrder(order);
+    public ResponseEntity<Order> savCustomer(@RequestBody Order order) {
+        Order savedOrder = iBusiness.saveOrder(order);
         if (Objects.isNull(savedOrder)) {
             return ResponseEntity.noContent().build();
         }

@@ -19,15 +19,10 @@ public interface IBusiness {
     //CATEGORIES
     List<Category> getCategories();
 
-    //USERS
-    List<User> getUsers();
-
-    //USER_ROLE
-    List<UserRole> getAllUserRole(Long idUser);
-
     //CUSTOMER
     Customer saveCustomer(Customer customer);
+    Optional<Customer> getCustomerById(Long idCustomer);
 
     //ORDER
-    Commande saveOrder(Commande order);
+    Order saveOrder(Order order);
 }

@@ -19,15 +19,6 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
-	private UserRoleRepository userRoleRepository;
-
 	public static void main(String[] args) {
 		SpringApplication.run(ApiTrainingsApplication.class, args);
 	}
@@ -73,29 +64,6 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		trainingRepository.save(new Training(null, "Gestion", "Formation au gestion budgétaire", 120, 1, "cuisine_chinoise", finance));
 		trainingRepository.save(new Training(null, "Fiscalité", "Fiscalité des entreprises", 300, 1, "cuisine_chinoise", finance));
 		trainingRepository.save(new Training(null, "Investissement", "Investissement et gestion de portefeuille", 175, 1, "cuisine_chinoise", finance));
-
-		Role admin = new Role("ADMIN");
-		Role user = new Role("USER");
-		roleRepository.save(admin);
-		roleRepository.save(user);
-
-		List<Role> arthurRole = new ArrayList<>();
-		List<Role> ambreRole = new ArrayList<>();
-		arthurRole.add(admin);
-		arthurRole.add(user);
-		ambreRole.add(user);
-
-		User arthur = new User("arthur", "123", true);
-		User ambre = new User("ambre", "123", true);
-		userRepository.save(arthur);
-		userRepository.save(ambre);
-
-		UserRole arthurAdmin = new UserRole(arthur, admin);
-		UserRole arthurUser = new UserRole(arthur, user);
-		UserRole ambreUser = new UserRole(ambre, user);
-		userRoleRepository.save(arthurAdmin);
-		userRoleRepository.save(arthurUser);
-		userRoleRepository.save(ambreUser);
 
 	}
 

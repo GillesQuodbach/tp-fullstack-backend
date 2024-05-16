@@ -18,12 +18,6 @@ public class IBusinessImpl implements IBusiness {
     CategoryRepository categoryRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    UserRoleRepository userRoleRepository;
-
-    @Autowired
     CustomerRepository customerRepository;
 
     @Autowired
@@ -51,17 +45,11 @@ public class IBusinessImpl implements IBusiness {
     public List<Category> getCategories() { return categoryRepository.findAll(); }
 
     @Override
-    public List<User> getUsers() { return userRepository.findAll(); }
-
-    @Override
-    public List<UserRole> getAllUserRole(Long idUser) {
-        User user = userRepository.findById(idUser).orElse(null);
-        return userRoleRepository.findByUser(user);
-    }
-
-    @Override
     public Customer saveCustomer(Customer customer) { return customerRepository.save(customer); }
 
     @Override
-    public Commande saveOrder(Commande order) { return orderRepository.save(order); }
+    public Optional<Customer> getCustomerById(Long idCustomer) { return customerRepository.findById(idCustomer); }
+
+    @Override
+    public Order saveOrder(Order order) { return orderRepository.save(order); }
 }
