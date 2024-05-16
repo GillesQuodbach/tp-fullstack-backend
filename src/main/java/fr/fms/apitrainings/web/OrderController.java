@@ -53,7 +53,7 @@ public class OrderController {
                 .path("/{id}")
                 .buildAndExpand(savedOrder.getId())
                 .toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(savedOrder);
     }
 
     @PostMapping("/ordersitems")
