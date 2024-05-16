@@ -3,6 +3,7 @@ package fr.fms.apitrainings.web;
 import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.entities.Customer;
 import fr.fms.apitrainings.entities.Order;
+import fr.fms.apitrainings.entities.OrderItem;
 import fr.fms.apitrainings.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,20 @@ public class OrderController {
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedOrder.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/ordersitems")
+    public ResponseEntity<OrderItem> savCustomer(@RequestBody OrderItem orderItem) {
+        OrderItem savedOrderItem = iBusiness.saveOrderItem(orderItem);
+        if (Objects.isNull(savedOrderItem)) {
+            return ResponseEntity.noContent().build();
+        }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedOrderItem.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }

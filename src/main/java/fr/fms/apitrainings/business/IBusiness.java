@@ -25,4 +25,7 @@ public interface IBusiness {
 
     //ORDER
     Order saveOrder(Order order);
+
+    //ORDER_ITEM
+    OrderItem saveOrderItem(OrderItem orderItem);
 }

@@ -23,6 +23,9 @@ public class IBusinessImpl implements IBusiness {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
     @Override
     public List<Training> getTrainings() {return trainingRepository.findAll(); }
 
@@ -52,4 +55,7 @@ public class IBusinessImpl implements IBusiness {
 
     @Override
     public Order saveOrder(Order order) { return orderRepository.save(order); }
+
+    @Override
+    public OrderItem saveOrderItem(OrderItem orderItem) { return orderItemRepository.save(orderItem); }
 }
