@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
@@ -16,10 +18,17 @@ public class StorageService {
     @Autowired
     FileDataRepository fileDataRepository;
 
-    private final String FOLDER_PATH="C:\\Users\\QuodbachG\\Documents\\trainings\\images";
+//    private final String FOLDER_PATH="C:\\Users\\QuodbachG\\Documents\\Dev\\tp-fullstack\\tp-fullstack-backend\\uploaded_images";
+    private final Path FOLDER_PATH = Paths.get("trainings_images/").toAbsolutePath().normalize();
 
     public String uploadImageToFileSystem(MultipartFile file) throws Exception{
-        String filePath = FOLDER_PATH+file.getOriginalFilename();
+        // Création du dossier si absent
+        if (!Files.exists(FOLDER_PATH)){
+            Files.createDirectories(FOLDER_PATH);
+        }
+
+//        String filePath = FOLDER_PATH+file.getOriginalFilename();
+        String filePath = FOLDER_PATH.resolve(file.getOriginalFilename()).toString();
         FileData fileData = fileDataRepository.save(FileData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
