@@ -19,6 +19,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private ImageRepository imageRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ApiTrainingsApplication.class, args);
 	}
@@ -30,6 +33,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 	public void generatedData() {
 		List<Training> trainingsList = new ArrayList<>();
+
+		Image defaultImage = new Image(null,"default", "image", "trainings_images/default.png");
+		imageRepository.save(defaultImage);
 
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);

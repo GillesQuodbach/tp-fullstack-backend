@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FileData {
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

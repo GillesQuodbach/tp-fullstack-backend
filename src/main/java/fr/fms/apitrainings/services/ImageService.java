@@ -1,7 +1,7 @@
 package fr.fms.apitrainings.services;
 
-import fr.fms.apitrainings.dao.FileDataRepository;
-import fr.fms.apitrainings.entities.FileData;
+import fr.fms.apitrainings.dao.ImageRepository;
+import fr.fms.apitrainings.entities.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,10 +13,10 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
-public class StorageService {
+public class ImageService {
 
     @Autowired
-    FileDataRepository fileDataRepository;
+    ImageRepository imageRepository;
 
 //    private final String FOLDER_PATH="C:\\Users\\QuodbachG\\Documents\\Dev\\tp-fullstack\\tp-fullstack-backend\\uploaded_images";
     private final Path FOLDER_PATH = Paths.get("trainings_images/").toAbsolutePath().normalize();
@@ -29,21 +29,21 @@ public class StorageService {
 
 //        String filePath = FOLDER_PATH+file.getOriginalFilename();
         String filePath = FOLDER_PATH.resolve(file.getOriginalFilename()).toString();
-        FileData fileData = fileDataRepository.save(FileData.builder()
+        Image image = imageRepository.save(Image.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())
                 .filePath(filePath).build());
 
         file.transferTo(new File(filePath));
 
-        if (fileData != null){
+        if (image != null){
             return "file uploaded successfully : " + filePath;
         }
         return null;
     }
 
     public byte[] downloadImageFromFileSystem(String fileName) throws Exception {
-        Optional<FileData> fileData = fileDataRepository.findByName(fileName);
+        Optional<Image> fileData = imageRepository.findByName(fileName);
         String filePath=fileData.get().getFilePath();
         byte[] images = Files.readAllBytes(new File(filePath).toPath());
         return images;
