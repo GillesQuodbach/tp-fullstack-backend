@@ -40,9 +40,9 @@ public class TrainingController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(training.getId())
+                .buildAndExpand(training1.getId())
                 .toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(training1);
     }
 
     @DeleteMapping("/trainings/{id}")
