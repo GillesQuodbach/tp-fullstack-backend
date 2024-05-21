@@ -5,9 +5,13 @@ import fr.fms.apitrainings.dao.CategoryRepository;
 import fr.fms.apitrainings.entities.Category;
 import fr.fms.apitrainings.exception.RecordNotFoundException;
 import fr.fms.apitrainings.entities.Training;
+import fr.fms.apitrainings.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -25,6 +29,9 @@ public class TrainingController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    ImageService service;
 
     @GetMapping("/trainings")
     public List<Training> allTrainings() {
@@ -66,5 +73,17 @@ public class TrainingController {
         return iBusiness.getCategories();
     }
 
+    // Gestion images
+    @PostMapping("/fileSystem")
+    public ResponseEntity<?> uploadImageToFileSystem(@RequestParam("image")MultipartFile file) throws Exception {
+        String uploadImage = service.uploadImageToFileSystem(file);
+        return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
+    }
 
+    @GetMapping("fileSystem/{fileName}")
+    public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws Exception {
+        byte[] imageData = service.downloadImageFromFileSystem(fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png")).body(imageData);
+    }
 }
