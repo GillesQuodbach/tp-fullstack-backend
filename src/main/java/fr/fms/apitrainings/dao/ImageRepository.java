@@ -7,6 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    Optional<Image> findByName(String fileName);
-    List<Image> findAll();
+ Optional<Image> findByName(String fileName);
 }

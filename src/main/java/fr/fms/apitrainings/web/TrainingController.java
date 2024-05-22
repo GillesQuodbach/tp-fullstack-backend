@@ -2,11 +2,18 @@ package fr.fms.apitrainings.web;
 
 import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.dao.CategoryRepository;
+
 import fr.fms.apitrainings.entities.Category;
-import fr.fms.apitrainings.exception.RecordNotFoundException;
+
 import fr.fms.apitrainings.entities.Training;
+import fr.fms.apitrainings.exception.RecordNotFoundException;
 import fr.fms.apitrainings.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.Resource;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +41,7 @@ public class TrainingController {
     CategoryRepository categoryRepository;
 
     @Autowired
-    ImageService service;
+    ImageService imageService;
 
     @GetMapping("/trainings")
     public List<Training> allTrainings() {
@@ -73,17 +83,31 @@ public class TrainingController {
         return iBusiness.getCategories();
     }
 
-    // Gestion images
-    @PostMapping("/fileSystem")
-    public ResponseEntity<?> uploadImageToFileSystem(@RequestParam("image")MultipartFile file) throws Exception {
-        String uploadImage = service.uploadImageToFileSystem(file);
-        return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
+    @PostMapping("/trainings/{id}/image")
+    public ResponseEntity<Training> uploadImage(@PathVariable("id") Long trainingId, @RequestParam("file") MultipartFile file) {
+        try {
+            Training training = imageService.uploadAndAssociateImageToTraining(trainingId, file);
+            return ResponseEntity.ok(training);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
-    @GetMapping("fileSystem/{fileName}")
-    public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws Exception {
-        byte[] imageData = service.downloadImageFromFileSystem(fileName);
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf("image/png")).body(imageData);
+    @GetMapping("/trainings/{id}/image")
+    public ResponseEntity<Resource> downloadImage(@PathVariable("id") Long trainingId) {
+        try {
+            byte[] data = imageService.downloadImage(trainingId);
+            ByteArrayResource resource = new ByteArrayResource(data);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG) // or appropriate type
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"image.jpg\"") // or appropriate file name
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
     }
+
 }
