@@ -19,10 +19,7 @@ public class Training implements Serializable {
     private String description;
     private double price;
     private int quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    private Image image;
+    private String img;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
