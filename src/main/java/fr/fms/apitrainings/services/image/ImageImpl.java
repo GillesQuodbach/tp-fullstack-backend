@@ -1,6 +1,8 @@
 package fr.fms.apitrainings.services.image;
 
+import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.entities.Training;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,10 @@ import java.util.Optional;
 
 @Service
 public class ImageImpl {
+
+    @Autowired
+    private IBusinessImpl iBusiness;
+
     private static final String BASE_PATH = "C:/user/home/images/trainings";
 
     public Resource loadImageAsResource(String imgName) throws Exception {
@@ -35,28 +41,35 @@ public class ImageImpl {
         }
         return contentype;
     }
-// GILLES - UPDATE IMAGE
-/*    public Training uploadAndAssociateImageToTraining(Long trainingId, MultipartFile file) throws IOException {
-        String filePath = FOLDER_PATH + File.separator + file.getOriginalFilename();
-        Files.createDirectories(Paths.get(FOLDER_PATH)); // Assure que le dossier existe
-        file.transferTo(new File(filePath));
 
-        Image image = Image.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
-                .filePath(filePath)
-                .build();
-
-        imageRepository.save(image);
-
-        Optional<Training> optionalTraining = trainingRepository.findById(trainingId);
-        if (optionalTraining.isPresent()) {
-            Training training = optionalTraining.get();
-            training.setImage(image);
-            return trainingRepository.save(training);
-        } else {
-            throw new IllegalArgumentException("Training not found");
+    public void uploadImage(MultipartFile file) throws IOException {
+        if(file.isEmpty()) {
+            throw new IllegalArgumentException("Aucun fichier n'a été sélectionné.");
         }
-    }*/
+        String filename = file.getOriginalFilename();
+        file.transferTo(new File(BASE_PATH + File.separator + filename));
+    }
 
+    public String uploadAndAssignImageToTraining(Long idTraining, MultipartFile file) throws IOException {
+        Optional<Training> optionalTraining = iBusiness.getTrainingById(idTraining);
+        if(optionalTraining.isPresent()) {
+            Training training = optionalTraining.get();
+
+            if(file.isEmpty()) {
+                throw new IllegalArgumentException("Aucun fichier n'a été sélectionné.");
+            }
+            // Récupération du nom du fichier
+            String filename = file.getOriginalFilename();
+
+            //On transfert l'image dans notre dossier = C:/user/home/images/trainings
+            file.transferTo(new File(BASE_PATH + File.separator + filename));
+
+            //On passe le nom de la photo à notre Training
+            training.setImg(filename);
+            iBusiness.saveTraining(training);
+            return filename;
+        } else {
+            throw new IllegalArgumentException("La formation avec l'identifiant " + idTraining + " n'existe pas.");
+        }
+    }
 }

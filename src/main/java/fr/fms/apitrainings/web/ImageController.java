@@ -9,7 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin("*")
@@ -39,16 +43,53 @@ public class ImageController {
         }
     }
 
-// GILLE - UPDATE IMAGES
-/*    @PostMapping("/trainings/{id}/image")
-    public ResponseEntity<Training> uploadImage(@PathVariable("id") Long trainingId, @RequestParam("file") MultipartFile file) {
-        try {
-            Training training = iImageImpl.uploadAndAssociateImageToTraining(trainingId, file);
-            return ResponseEntity.ok(training);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
+    @PostMapping("/download")
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+        Map<String, String> response = new HashMap<>();
+
+        if (file.isEmpty()) {
+            response.put("message", "Le fichier est vide.");
+            return ResponseEntity.badRequest().body(response);
         }
-    }*/
+
+        String fileName = file.getOriginalFilename();
+        try {
+            iImageImpl.uploadImage(file);
+        } catch (IOException e) {
+            response.put("message", "Erreur lors du téléchargement du fichier " + fileName + ".");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (Exception e) {
+            response.put("message", "Une erreur inattendue est survenue lors du téléchargement du fichier " + fileName + ".");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        response.put("message", "Le fichier " + fileName + " a été téléchargé avec succès.");
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/download/{id}")
+    public ResponseEntity<Map<String, String>> uploadImage(@PathVariable("id") Long idTraining, @RequestParam("file")MultipartFile file) throws IOException {
+        Map<String, String> response = new HashMap<>();
+
+        if(file.isEmpty()) {
+            response.put("message", "Le fichier est vide.");
+            return ResponseEntity.badRequest().body(response);
+        }
+        String fileName = file.getOriginalFilename();
+
+        try {
+            iImageImpl.uploadAndAssignImageToTraining(idTraining, file);
+        } catch (IOException e) {
+            response.put("message", "Erreur lors du téléchargement du fichier " + fileName + ".");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (Exception e) {
+            response.put("message", "Une erreur inattendue est survenue lors du téléchargement du fichier " + fileName + ".");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
+        response.put("message", "Le fichier " + fileName + " a été téléchargé avec succès et à bien été affilier à la training :" + idTraining);
+        return ResponseEntity.ok(response);
+    }
+
 }
