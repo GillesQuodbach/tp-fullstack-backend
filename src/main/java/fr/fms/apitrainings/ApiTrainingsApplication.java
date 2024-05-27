@@ -35,11 +35,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	public void generatedData() {
 
 		List<Training> trainingsList = new ArrayList<>();
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 6bb4beb7e031dc68e4f978457c07506f16d131f3
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
 		Category anglais = new Category("Langues étrangères", trainingsList);

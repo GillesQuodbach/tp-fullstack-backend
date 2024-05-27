@@ -25,7 +25,7 @@ public class ImageImpl  implements IImage{
     @Autowired
     private IBusinessImpl iBusiness;
 
-<<<<<<< HEAD
+
     @Autowired
     private Environment env;
 
@@ -37,9 +37,6 @@ public class ImageImpl  implements IImage{
 
        BASE_PATH = userHome + File.separator + "Pictures" + File.separator +"trainings" + File.separator +"images";
    }
-=======
-   private static String BASE_PATH = System.getProperty("user.home") + "\\Pictures\\trainings\\images";
->>>>>>> 6bb4beb7e031dc68e4f978457c07506f16d131f3
 
     public Resource loadImageAsResource(String imgName) throws Exception {
         Path imagePath = Paths.get(BASE_PATH).resolve(imgName);
