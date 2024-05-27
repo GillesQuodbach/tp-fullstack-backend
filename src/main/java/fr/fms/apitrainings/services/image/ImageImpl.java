@@ -2,12 +2,16 @@ package fr.fms.apitrainings.services.image;
 
 import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.entities.Training;
+import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import fr.fms.apitrainings.services.image.IImage;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,12 +20,23 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
-public class ImageImpl {
+public class ImageImpl  implements IImage{
 
     @Autowired
     private IBusinessImpl iBusiness;
 
-   private static String BASE_PATH = System.getProperty("user.home") + "\\Pictures\\trainings\\images";
+
+    @Autowired
+    private Environment env;
+
+    private String BASE_PATH;
+
+   @PostConstruct
+   public void init(){
+       String userHome = env.getProperty("app.home");
+
+       BASE_PATH = userHome + File.separator + "Pictures" + File.separator +"trainings" + File.separator +"images";
+   }
 
     public Resource loadImageAsResource(String imgName) throws Exception {
         Path imagePath = Paths.get(BASE_PATH).resolve(imgName);
