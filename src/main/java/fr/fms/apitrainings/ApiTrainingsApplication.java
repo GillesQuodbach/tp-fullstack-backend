@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,10 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	}
 
 	public void generatedData() {
-		
-		List<Training> trainingsList = new ArrayList<>();
 
+		List<Training> trainingsList = new ArrayList<>();
+		String BASE_PATH = System.getProperty("user.home") + "\\Pictures\\trainings\\image";
+		System.out.println(BASE_PATH);
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
 		Category anglais = new Category("Langues étrangères", trainingsList);
