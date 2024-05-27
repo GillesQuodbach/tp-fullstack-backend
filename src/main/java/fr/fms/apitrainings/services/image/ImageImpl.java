@@ -21,10 +21,7 @@ public class ImageImpl {
     @Autowired
     private IBusinessImpl iBusiness;
 
-//    private static final String BASE_PATH = "C:/user/home/images/trainings";
-//    private static final String BASE_PATH = "C:\\Users\\QuodbachG/user/home/trainings/images";
-//    System.getProperty("user.home") + "/user/home/trainings/images";
-   private static String BASE_PATH = System.getProperty("user.home") + "/user/home/trainings/images";
+    private static String BASE_PATH = System.getProperty("user.home") + File.separator + "Pictures\\trainings";
     public Resource loadImageAsResource(String imgName) throws Exception {
         Path imagePath = Paths.get(BASE_PATH).resolve(imgName);
         Resource resource = new UrlResource(imagePath.toUri());
