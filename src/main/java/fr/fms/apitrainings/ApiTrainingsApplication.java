@@ -19,7 +19,6 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	private static String BASE_PATH = System.getProperty("user.home") + File.separator + "user\\home\\trainings\\images";
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiTrainingsApplication.class, args);
@@ -32,16 +31,8 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 	public void generatedData() {
 
-		File file1 = new File("C:\\Users\\GibertA\\user\\home\\trainings\\images");
-		File file2 = new File("C:\\user\\home\\images\\trainings");
-
-		System.out.println("Path 1 exists: " + file1.exists());
-		System.out.println("Path 2 exists: " + file2.exists());
-
-		System.out.println(BASE_PATH);
-		System.out.println("C:\\Users\\GibertA\\user\\home\\trainings\\images");
 		List<Training> trainingsList = new ArrayList<>();
-
+		
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
 		Category anglais = new Category("Langues étrangères", trainingsList);

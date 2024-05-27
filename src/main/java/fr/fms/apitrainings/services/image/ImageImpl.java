@@ -21,7 +21,8 @@ public class ImageImpl {
     @Autowired
     private IBusinessImpl iBusiness;
 
-    private static String BASE_PATH = System.getProperty("user.home") + File.separator + "Pictures\\trainings";
+   private static String BASE_PATH = System.getProperty("user.home") + "\\Pictures\\trainings\\images";
+
     public Resource loadImageAsResource(String imgName) throws Exception {
         Path imagePath = Paths.get(BASE_PATH).resolve(imgName);
         Resource resource = new UrlResource(imagePath.toUri());
