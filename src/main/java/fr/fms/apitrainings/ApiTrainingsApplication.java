@@ -3,6 +3,7 @@ package fr.fms.apitrainings;
 import fr.fms.apitrainings.dao.*;
 import fr.fms.apitrainings.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ import java.util.List;
 
 @SpringBootApplication
 public class ApiTrainingsApplication implements CommandLineRunner {
+	@Value("${app.home}")
+	private String userHome;
 
 	@Autowired
 	private TrainingRepository trainingRepository;
