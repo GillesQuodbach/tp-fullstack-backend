@@ -32,7 +32,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	public void generatedData() {
 
 		List<Training> trainingsList = new ArrayList<>();
-		
+
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
 		Category anglais = new Category("Langues étrangères", trainingsList);

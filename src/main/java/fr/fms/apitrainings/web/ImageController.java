@@ -83,11 +83,7 @@ public class ImageController {
         } catch (IOException e) {
             response.put("message", "Erreur lors du téléchargement du fichier " + fileName + ".");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        } catch (Exception e) {
-            response.put("message", "Une erreur inattendue est survenue lors du téléchargement du fichier " + fileName + ".");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-
         response.put("message", "Le fichier " + fileName + " a été téléchargé avec succès et à bien été affilier à la training :" + idTraining);
         return ResponseEntity.ok(response);
     }
