@@ -61,29 +61,29 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		categoryRepository.save(cuisine);
 		categoryRepository.save(anglais);
 		categoryRepository.save(finance);
+		
+		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, "java.jpg", informatique));
+		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1, "c.jpg", informatique));
+		trainingRepository.save(new Training(null, "Javascript", "Formation Javascript", 120, 1, "JS.jpg", informatique));
+		trainingRepository.save(new Training(null, "Python", "Formation Python", 300, 1, "python.jpg", informatique));
+		trainingRepository.save(new Training(null, "NodeJS", "Formation NodeJS", 175, 1, "NodeJS.jpg", informatique));
 
-		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, "default.jpg", informatique));
-		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1, "british-flag.jpg", informatique));
-		trainingRepository.save(new Training(null, "Javascript", "Formation Javascript", 120, 1, "default.jpg", informatique));
-		trainingRepository.save(new Training(null, "Python", "Formation Python", 300, 1, "default.jpg", informatique));
-		trainingRepository.save(new Training(null, "NodeJS", "Formation NodeJS", 175, 1, "default.jpg", informatique));
-
-		trainingRepository.save(new Training(null, "Bases", "Les bases de la cuisine", 90, 1, "default.jpg", cuisine));
-		trainingRepository.save(new Training(null, "Cuisine du monde", "Les cuisines du monde", 300, 1, "default.jpg", cuisine));
-		trainingRepository.save(new Training(null, "Pâtisserie", "Les bases de la pâtisserie", 310, 1, "default.jpg", cuisine));
-		trainingRepository.save(new Training(null, "Vegan", "Apprendre la cuisine vegan", 45, 1, "default.jpg", cuisine));
+		trainingRepository.save(new Training(null, "Bases", "Les bases de la cuisine", 90, 1, "cuisineBases.jpg", cuisine));
+		trainingRepository.save(new Training(null, "Cuisine du monde", "Les cuisines du monde", 300, 1, "world-cook.jpg", cuisine));
+		trainingRepository.save(new Training(null, "Pâtisserie", "Les bases de la pâtisserie", 310, 1, "cookPatisserie.jpg", cuisine));
+		trainingRepository.save(new Training(null, "Vegan", "Apprendre la cuisine vegan", 45, 1, "cookVegan.jpg", cuisine));
 		trainingRepository.save(new Training(null, "Santé", " Élaboration de plats équilibrés", 155, 1, "default.jpg", cuisine));
 
-		trainingRepository.save(new Training(null, "Anglais", "Formation à l'anglais", 150, 1, "default.jpg", anglais));
-		trainingRepository.save(new Training(null, "Espagnol", "Formation à l'espagnol", 100, 1, "default.jpg", anglais));
-		trainingRepository.save(new Training(null, "Français", "Formation au français", 120, 1, "default.jpg", anglais));
-		trainingRepository.save(new Training(null, "Allemand", "Formation à l'allemand", 300, 1, "default.jpg", anglais));
-		trainingRepository.save(new Training(null, "Mandarin", "Formation au mandarin", 175, 1, "default.jpg", anglais));
+		trainingRepository.save(new Training(null, "Anglais", "Formation à l'anglais", 150, 1, "british-flag.jpg", anglais));
+		trainingRepository.save(new Training(null, "Espagnol", "Formation à l'espagnol", 100, 1, "spain-flag.jpg", anglais));
+		trainingRepository.save(new Training(null, "Français", "Formation au français", 120, 1, "french-flag.jpg", anglais));
+		trainingRepository.save(new Training(null, "Allemand", "Formation à l'allemand", 300, 1, "german-flag.jpg", anglais));
+		trainingRepository.save(new Training(null, "Mandarin", "Formation au mandarin", 175, 1, "china-flag.jpg", anglais));
 
-		trainingRepository.save(new Training(null, "Comptabilité", "Les bases de la comptabilité", 150, 1, "default.jpg", finance));
-		trainingRepository.save(new Training(null, "Analyse", "Formation aux analyses financières", 100, 1, "default.jpg", finance));
-		trainingRepository.save(new Training(null, "Gestion", "Formation au gestion budgétaire", 120, 1, "default.jpg", finance));
-		trainingRepository.save(new Training(null, "Fiscalité", "Fiscalité des entreprises", 300, 1, "default.jpg", finance));
+		trainingRepository.save(new Training(null, "Comptabilité", "Les bases de la comptabilité", 150, 1, "compta-bases.jpg", finance));
+		trainingRepository.save(new Training(null, "Analyse", "Formation aux analyses financières", 100, 1, "fin-analyst.jpg", finance));
+		trainingRepository.save(new Training(null, "Gestion", "Formation au gestion budgétaire", 120, 1, "fin-gestion.jpg", finance));
+		trainingRepository.save(new Training(null, "Fiscalité", "Fiscalité des entreprises", 300, 1, "fin-impots.jpg", finance));
 		trainingRepository.save(new Training(null, "Investissement", "Investissement et gestion de portefeuille", 175, 1, "default.jpg", finance));
 
 	}

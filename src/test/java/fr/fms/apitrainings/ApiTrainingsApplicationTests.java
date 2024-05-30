@@ -19,7 +19,7 @@ class ApiTrainingsApplicationTests {
 	private MockMvc mockMvc;
 
 	@Test void testGetTrainingsAndTestName() throws Exception {
-		mockMvc.perform(get("/api/trainings"))
+		mockMvc.perform(get("/trainings"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].name",is("Java")));
 	}
