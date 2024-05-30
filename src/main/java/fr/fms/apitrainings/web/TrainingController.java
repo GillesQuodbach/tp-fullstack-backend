@@ -64,6 +64,7 @@ public class TrainingController {
      */
     @DeleteMapping("/trainings/{id}")
     public void deleteTraining(@PathVariable("id") Long id) {
+        System.out.println("Suppression ok");
         iBusiness.deleteTraining(id);
     }
 
