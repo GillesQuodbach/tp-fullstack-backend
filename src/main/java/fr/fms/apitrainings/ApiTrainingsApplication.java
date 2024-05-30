@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main class for the API Trainings application.
+ */
 @SpringBootApplication
 public class ApiTrainingsApplication implements CommandLineRunner {
 	@Value("${app.home}")
@@ -22,15 +25,29 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	/**
+	 * The entry point of the application.
+	 *
+	 * @param args the command line arguments.
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(ApiTrainingsApplication.class, args);
 	}
 
+	/**
+	 * Run method implemented from CommandLineRunner interface.
+	 *
+	 * @param args the command line arguments.
+	 * @throws Exception if an error occurs.
+	 */
 	@Override
-	public void run(String... args) throws  Exception {
+	public void run(String... args) throws Exception {
 		generatedData();
 	}
 
+	/**
+	 * Method to generate sample data.
+	 */
 	public void generatedData() {
 
 		List<Training> trainingsList = new ArrayList<>();
@@ -44,8 +61,8 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		categoryRepository.save(cuisine);
 		categoryRepository.save(anglais);
 		categoryRepository.save(finance);
-		
-		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, "default.jpg",informatique));
+
+		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, "default.jpg", informatique));
 		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1, "default.jpg", informatique));
 		trainingRepository.save(new Training(null, "Javascript", "Formation Javascript", 120, 1, "default.jpg", informatique));
 		trainingRepository.save(new Training(null, "Python", "Formation Python", 300, 1, "default.jpg", informatique));
