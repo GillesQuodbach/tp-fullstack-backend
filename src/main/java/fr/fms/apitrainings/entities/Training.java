@@ -53,6 +53,7 @@ public class Training implements Serializable {
      */
     private String img;
 
+    private boolean active;
     /**
      * The category associated with the training.
      */
