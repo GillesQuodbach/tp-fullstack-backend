@@ -2,11 +2,16 @@ package fr.fms.apitrainings;
 
 import fr.fms.apitrainings.dao.*;
 import fr.fms.apitrainings.entities.*;
+import fr.fms.apitrainings.security.entities.AppRole;
+import fr.fms.apitrainings.security.entities.AppUser;
+import fr.fms.apitrainings.security.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,16 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private AccountService accountService;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Bean
+	public BCryptPasswordEncoder getbCryptPasswordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
 	/**
 	 * The entry point of the application.
 	 *
@@ -43,6 +58,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		generatedData();
+		generateUsersRoles();
 	}
 
 	/**
@@ -61,12 +77,14 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		categoryRepository.save(cuisine);
 		categoryRepository.save(anglais);
 		categoryRepository.save(finance);
+
 		
 		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, 5,"java.jpg", false, informatique));
 		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1,2, "c.jpg", true, informatique));
 		trainingRepository.save(new Training(null, "Javascript", "Formation Javascript", 120, 1,3, "JS.jpg",true, informatique));
 		trainingRepository.save(new Training(null, "Python", "Formation Python", 300, 1,40, "python.jpg",true, informatique));
 		trainingRepository.save(new Training(null, "NodeJS", "Formation NodeJS", 175, 1,40, "NodeJS.jpg",true, informatique));
+
 
 		trainingRepository.save(new Training(null, "Bases", "Les bases de la cuisine", 90, 1,0, "cuisineBases.jpg",true, cuisine));
 		trainingRepository.save(new Training(null, "Cuisine du monde", "Les cuisines du monde", 300, 1,40, "world-cook.jpg",true, cuisine));
@@ -86,6 +104,18 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		trainingRepository.save(new Training(null, "Fiscalité", "Fiscalité des entreprises", 300, 1,40, "fin-impots.jpg",true, finance));
 		trainingRepository.save(new Training(null, "Investissement", "Investissement et gestion de portefeuille", 175, 1,40, "default.jpg",true, finance));
 
+	}
+
+	private void generateUsersRoles(){
+		accountService.saveUser(new AppUser(null,"gilles", "1234", new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"anonymous", "1234", new ArrayList<>()));
+
+		accountService.saveRole(new AppRole(null,"ADMIN"));
+		accountService.saveRole(new AppRole(null,"USER"));
+
+		accountService.addRoleToUser("gilles", "ADMIN");
+		accountService.addRoleToUser("gilles", "USER");
+		accountService.addRoleToUser("anonymous", "USER");
 	}
 
 }
