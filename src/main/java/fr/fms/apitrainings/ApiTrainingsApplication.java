@@ -62,7 +62,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		categoryRepository.save(anglais);
 		categoryRepository.save(finance);
 		
-		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, 5,"java.jpg", true, informatique));
+		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, 5,"java.jpg", false, informatique));
 		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1,2, "c.jpg", true, informatique));
 		trainingRepository.save(new Training(null, "Javascript", "Formation Javascript", 120, 1,3, "JS.jpg",true, informatique));
 		trainingRepository.save(new Training(null, "Python", "Formation Python", 300, 1,40, "python.jpg",true, informatique));
