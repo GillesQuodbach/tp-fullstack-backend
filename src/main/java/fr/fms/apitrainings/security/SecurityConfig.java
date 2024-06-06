@@ -46,13 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.formLogin();
         // ajout filtre authentification
 
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/users").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/token").permitAll();
+
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/customers").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET,"/users").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/trainings").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/trainings").permitAll();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Override

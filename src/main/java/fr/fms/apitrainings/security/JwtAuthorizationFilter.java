@@ -22,12 +22,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
-        String token = request.getHeader(SecuityConstants.HEADER_STRING); // récupère le token
-
-        if(token != null && token.startsWith(SecuityConstants.TOKEN_PREFIX)){
+        String token = request.getHeader(SecurityConstants.HEADER_STRING); // récupère le token
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,POST");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization");
+        if(token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)){
             try {
                 String jwtToken = token.substring(7);
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecuityConstants.SECRET)).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SecurityConstants.SECRET)).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(jwtToken);
 
                 String username = decodedJWT.getSubject();
@@ -38,7 +40,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } catch (Exception e){
-                response.setHeader(SecuityConstants.ERROR_MSG, e.getMessage());
+                response.setHeader(SecurityConstants.ERROR_MSG, e.getMessage());
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
             }
         }
