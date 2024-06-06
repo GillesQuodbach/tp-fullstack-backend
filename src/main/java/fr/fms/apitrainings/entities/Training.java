@@ -44,10 +44,16 @@ public class Training implements Serializable {
     private int quantity;
 
     /**
+     * The quantity of the training.
+     */
+    private int capacity;
+
+    /**
      * The image URL of the training.
      */
     private String img;
 
+    private boolean active;
     /**
      * The category associated with the training.
      */
