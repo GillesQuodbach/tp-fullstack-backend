@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,6 +23,8 @@ public class OrderController {
 
     @Autowired
     private IBusinessImpl iBusiness;
+
+
 
     /**
      * Endpoint for saving a customer.
@@ -55,7 +58,10 @@ public class OrderController {
         return iBusiness.getCustomerById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Id de client " + id + " n'existe pas"));
     }
-
+    @GetMapping("/orders")
+    public List<Order> getAllOrders(){
+        return iBusiness.getOrders();
+    }
     /**
      * Endpoint for saving an order.
      *
@@ -75,6 +81,8 @@ public class OrderController {
                 .toUri();
         return ResponseEntity.created(location).body(savedOrder);
     }
+
+
 
     /**
      * Endpoint for saving an order item.

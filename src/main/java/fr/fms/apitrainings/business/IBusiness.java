@@ -1,6 +1,7 @@
 package fr.fms.apitrainings.business;
 
 import fr.fms.apitrainings.entities.*;
+import org.hibernate.usertype.LoggableUserType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Optional;
  * Business interface for handling various operations related to trainings, categories, customers, orders, and order items.
  */
 public interface IBusiness {
+
+    List<Order> getOrders();
 
     /**
      * Retrieves all trainings.

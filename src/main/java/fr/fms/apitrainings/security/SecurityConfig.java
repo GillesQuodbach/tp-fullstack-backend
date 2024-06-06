@@ -47,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // ajout filtre authentification
 
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/users").hasAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/token").permitAll();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));

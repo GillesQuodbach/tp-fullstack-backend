@@ -29,6 +29,12 @@ public class IBusinessImpl implements IBusiness {
     @Autowired
     OrderItemRepository orderItemRepository;
 
+
+    @Override
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
+    }
+
     /**
      * Retrieves all trainings.
      *

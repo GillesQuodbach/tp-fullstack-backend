@@ -5,6 +5,7 @@ import fr.fms.apitrainings.entities.*;
 import fr.fms.apitrainings.security.entities.AppRole;
 import fr.fms.apitrainings.security.entities.AppUser;
 import fr.fms.apitrainings.security.service.AccountService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +30,12 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
 
 	@Autowired
 	private AccountService accountService;
@@ -67,11 +74,15 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	public void generatedData() {
 
 		List<Training> trainingsList = new ArrayList<>();
+		List<Order> ordersList = new ArrayList<>();
 
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
 		Category anglais = new Category("Langues étrangères", trainingsList);
 		Category finance = new Category("Finance et comptabilité", trainingsList);
+
+
+
 
 		categoryRepository.save(informatique);
 		categoryRepository.save(cuisine);
@@ -104,6 +115,15 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		trainingRepository.save(new Training(null, "Fiscalité", "Fiscalité des entreprises", 300, 1,40, "fin-impots.jpg",true, finance));
 		trainingRepository.save(new Training(null, "Investissement", "Investissement et gestion de portefeuille", 175, 1,40, "default.jpg",true, finance));
 
+		Customer customer = new Customer(null, "Lara", "Croft", "12 rue du manoir", "0403158698", "laracroft@gmail.com", ordersList);
+		customerRepository.save(customer);
+		Order order = new Order(null, 200.0, customer);
+		orderRepository.save(order);
+
+		Customer customer2 = new Customer(null, "Lary", "Craft", "12 rue du manoir", "0403158698", "laracroft@gmail.com", ordersList);
+		customerRepository.save(customer2);
+		Order order2 = new Order(null, 200.0, customer2);
+		orderRepository.save(order2);
 	}
 
 	private void generateUsersRoles(){
