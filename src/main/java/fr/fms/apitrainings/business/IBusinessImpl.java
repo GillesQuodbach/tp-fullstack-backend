@@ -2,11 +2,13 @@ package fr.fms.apitrainings.business;
 
 import fr.fms.apitrainings.dao.*;
 import fr.fms.apitrainings.entities.*;
+import fr.fms.apitrainings.mappers.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service implementation for business logic.
@@ -29,6 +31,10 @@ public class IBusinessImpl implements IBusiness {
     @Autowired
     OrderItemRepository orderItemRepository;
 
+    public CategoryDTO add(CategoryDTO categoryDTO) {
+        Category category = categoryRepository.save(CategoryMapper.mapToEntity(categoryDTO));
+        return CategoryMapper.mapToDto(category);
+    }
 
     @Override
     public List<Order> getOrders() {
@@ -95,8 +101,11 @@ public class IBusinessImpl implements IBusiness {
      * @return a list of all categories.
      */
     @Override
-    public List<Category> getCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDTO> getCategories() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(category -> CategoryMapper.mapToDto(category))
+                .collect(Collectors.toList());
     }
 
     /**
