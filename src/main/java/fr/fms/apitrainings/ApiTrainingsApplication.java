@@ -81,14 +81,10 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		Category anglais = new Category("Langues étrangères", trainingsList);
 		Category finance = new Category("Finance et comptabilité", trainingsList);
 
-
-
-
 		categoryRepository.save(informatique);
 		categoryRepository.save(cuisine);
 		categoryRepository.save(anglais);
 		categoryRepository.save(finance);
-
 		
 		trainingRepository.save(new Training(null, "Java", "Formation Java", 150, 1, 5,"java.jpg", false, informatique));
 		trainingRepository.save(new Training(null, "C", "Formation C", 100, 1,2, "c.jpg", true, informatique));
@@ -117,13 +113,24 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 		Customer customer = new Customer(null, "Lara", "Croft", "12 rue du manoir", "0403158698", "laracroft@gmail.com", ordersList);
 		customerRepository.save(customer);
-		Order order = new Order(null, 200.0, customer);
+		Order order = new Order(null, 200.0, customer, "En cours");
 		orderRepository.save(order);
 
 		Customer customer2 = new Customer(null, "Lary", "Craft", "12 rue du manoir", "0403158698", "laracroft@gmail.com", ordersList);
 		customerRepository.save(customer2);
-		Order order2 = new Order(null, 200.0, customer2);
+		Order order2 = new Order(null, 200.0, customer2, "En cours");
+		Order order3 = new Order(null, 350.0, customer2, "En cours");
+		Order order4 = new Order(null, 1000.0, customer2, "En cours");
+		Order order5 = new Order(null, 555.0, customer2, "En cours");
+		Order order6 = new Order(null, 675.0, customer2, "En cours");
+		Order order7 = new Order(null, 110.0, customer2, "En cours");
+
 		orderRepository.save(order2);
+		orderRepository.save(order3);
+		orderRepository.save(order4);
+		orderRepository.save(order5);
+		orderRepository.save(order6);
+		orderRepository.save(order7);
 	}
 
 	private void generateUsersRoles(){
