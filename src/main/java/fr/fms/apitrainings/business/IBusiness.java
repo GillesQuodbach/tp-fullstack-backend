@@ -12,6 +12,10 @@ import java.util.Optional;
  */
 public interface IBusiness {
 
+
+
+    Optional<Order> getOrderById(Long id);
+
     List<Order> getOrders();
 
     /**

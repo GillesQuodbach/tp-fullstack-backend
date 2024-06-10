@@ -109,10 +109,22 @@ public class OrderController {
         return ResponseEntity.created(location).build();
     }
 
+
     /*ALE*/
     @GetMapping("/ordersitems/{id}")
     public List<OrderItem> getOrderItemById(@PathVariable("id") Long id) {
         return iBusiness.getOrderItemByOrderId(id);
+    }
+
+
+    @PutMapping("/orders/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody String status){
+        Order order = iBusiness.getOrderById(id).orElseThrow(()-> new RecordNotFoundException("Id de Formation " + id + " n'existe pas"));
+        order.setStatus(status); // on s'assure que le status existe sur cette order
+
+        Order updatedOrder = iBusiness.saveOrder(order);
+
+        return ResponseEntity.ok(updatedOrder);
     }
 
 }

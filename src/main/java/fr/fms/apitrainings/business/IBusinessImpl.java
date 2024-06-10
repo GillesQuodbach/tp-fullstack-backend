@@ -29,6 +29,10 @@ public class IBusinessImpl implements IBusiness {
     @Autowired
     OrderItemRepository orderItemRepository;
 
+    @Override
+    public Optional<Order> getOrderById(Long id) {
+        return orderRepository.findOrderById(id);
+    }
 
     @Override
     public List<Order> getOrders() {
