@@ -1,9 +1,6 @@
 package fr.fms.apitrainings.security;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,13 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.auth0.jwt.JWT;
-
-import static org.springframework.security.config.Elements.JWT;
 
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -51,16 +42,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // A finir
         String jwtToken = com.auth0.jwt.JWT.create()
                 .withSubject(springUser.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + SecuityConstants.EXPIRATION_TIME)) // expiration dans 10min
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME)) // expiration dans 10min
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", springUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(Algorithm.HMAC256(SecuityConstants.SECRET));
+                .sign(Algorithm.HMAC256(SecurityConstants.SECRET));
 
         // injection dans la reponse http des 2 tokens au format json
 
 
 
-        response.setHeader(SecuityConstants.HEADER_STRING, SecuityConstants.TOKEN_PREFIX + jwtToken);
+        response.setHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + jwtToken);
+        response.addHeader("Access-Control-Expose-Headers", SecurityConstants.HEADER_STRING);
 
     }
 }

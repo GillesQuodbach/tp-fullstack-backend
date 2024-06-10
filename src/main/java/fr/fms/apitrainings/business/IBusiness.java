@@ -12,6 +12,10 @@ import java.util.Optional;
  */
 public interface IBusiness {
 
+
+
+    Optional<Order> getOrderById(Long id);
+
     List<Order> getOrders();
 
     /**
@@ -57,7 +61,7 @@ public interface IBusiness {
      *
      * @return a list of all categories.
      */
-    List<Category> getCategories();
+    List<CategoryDTO> getCategories();
 
     /**
      * Saves a customer.

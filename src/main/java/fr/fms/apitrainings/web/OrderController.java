@@ -103,4 +103,14 @@ public class OrderController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+
+    @PutMapping("/orders/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody String status){
+        Order order = iBusiness.getOrderById(id).orElseThrow(()-> new RecordNotFoundException("Id de Formation " + id + " n'existe pas"));
+        order.setStatus(status); // on s'assure que le status existe sur cette order
+
+        Order updatedOrder = iBusiness.saveOrder(order);
+
+        return ResponseEntity.ok(updatedOrder);
+    }
 }

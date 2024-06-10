@@ -3,6 +3,7 @@ package fr.fms.apitrainings.web;
 import fr.fms.apitrainings.business.IBusinessImpl;
 import fr.fms.apitrainings.dao.CategoryRepository;
 import fr.fms.apitrainings.entities.Category;
+import fr.fms.apitrainings.entities.CategoryDTO;
 import fr.fms.apitrainings.entities.Training;
 import fr.fms.apitrainings.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class TrainingController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @PostMapping("/categoryy")
+    public CategoryDTO add(@RequestBody CategoryDTO entity) {
+        return iBusiness.add(entity);
+    }
 
     /**
      * Endpoint for retrieving all trainings.
@@ -98,7 +104,7 @@ public class TrainingController {
      * @return the list of all categories.
      */
     @GetMapping("/categories")
-    public List<Category> getAllCategories() {
+    public List<CategoryDTO> getAllCategories() {
         return iBusiness.getCategories();
     }
 

@@ -34,4 +34,9 @@ public class Order implements Serializable {
      */
     @ManyToOne
     Customer customer;
+
+    /**
+     * The status associated with the order.
+     */
+    String status;
 }
