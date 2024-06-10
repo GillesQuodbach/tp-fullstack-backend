@@ -136,6 +136,8 @@ public class IBusinessImpl implements IBusiness {
         return customerRepository.findById(idCustomer);
     }
 
+    /*ALE*/
+    public Optional<Order> getOrderById(Long idOrder) { return orderRepository.findById(idOrder); }
     /**
      * Saves an order.
      *
@@ -157,4 +159,10 @@ public class IBusinessImpl implements IBusiness {
     public OrderItem saveOrderItem(OrderItem orderItem) {
         return orderItemRepository.save(orderItem);
     }
+
+    /*ALE*/
+    @Override
+    public List<OrderItem> getOrderItemByOrderId(Long id) {return orderItemRepository.findByOrderId(id); }
 }
+
+

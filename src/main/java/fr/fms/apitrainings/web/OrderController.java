@@ -58,6 +58,13 @@ public class OrderController {
         return iBusiness.getCustomerById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Id de client " + id + " n'existe pas"));
     }
+
+    @GetMapping("/orders/{id}")
+    public Order getOrderById(@PathVariable("id") Long id) {
+        return iBusiness.getOrderById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Id de commande" + id + "n'exsite pas"));
+    }
+
     @GetMapping("/orders")
     public List<Order> getAllOrders(){
         return iBusiness.getOrders();
@@ -82,8 +89,6 @@ public class OrderController {
         return ResponseEntity.created(location).body(savedOrder);
     }
 
-
-
     /**
      * Endpoint for saving an order item.
      *
@@ -104,6 +109,14 @@ public class OrderController {
         return ResponseEntity.created(location).build();
     }
 
+
+    /*ALE*/
+    @GetMapping("/ordersitems/{id}")
+    public List<OrderItem> getOrderItemById(@PathVariable("id") Long id) {
+        return iBusiness.getOrderItemByOrderId(id);
+    }
+
+
     @PutMapping("/orders/{id}/status")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody String status){
         Order order = iBusiness.getOrderById(id).orElseThrow(()-> new RecordNotFoundException("Id de Formation " + id + " n'existe pas"));
@@ -113,4 +126,6 @@ public class OrderController {
 
         return ResponseEntity.ok(updatedOrder);
     }
+
 }
+
