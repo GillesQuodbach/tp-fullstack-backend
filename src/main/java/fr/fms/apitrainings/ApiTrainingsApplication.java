@@ -136,13 +136,18 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	private void generateUsersRoles(){
 		accountService.saveUser(new AppUser(null,"gilles", "1234", new ArrayList<>()));
 		accountService.saveUser(new AppUser(null,"anonymous", "1234", new ArrayList<>()));
+		accountService.saveUser(new AppUser(null,"alejandra", "1234", new ArrayList<>()));
 
 		accountService.saveRole(new AppRole(null,"ADMIN"));
 		accountService.saveRole(new AppRole(null,"USER"));
+		accountService.saveRole(new AppRole(null,"ORDER_MANAGER"));
 
 		accountService.addRoleToUser("gilles", "ADMIN");
 		accountService.addRoleToUser("gilles", "USER");
 		accountService.addRoleToUser("anonymous", "USER");
+		accountService.addRoleToUser("alejandra", "ORDER_MANAGER");
+		accountService.addRoleToUser("alejandra", "USER");
+
 	}
 
 }

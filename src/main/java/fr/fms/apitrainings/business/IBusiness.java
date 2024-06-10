@@ -61,7 +61,7 @@ public interface IBusiness {
      *
      * @return a list of all categories.
      */
-    List<Category> getCategories();
+    List<CategoryDTO> getCategories();
 
     /**
      * Saves a customer.

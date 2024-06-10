@@ -1,6 +1,6 @@
 package fr.fms.apitrainings.security;
 
-public class SecuityConstants {
+public class SecurityConstants {
     public static final String HEADER_STRING = "Authorization";
     public static final String SECRET = "gilles@gmail.com";
     public static final long EXPIRATION_TIME = 10 * 60 *1000;
