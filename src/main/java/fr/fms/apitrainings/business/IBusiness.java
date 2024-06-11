@@ -80,9 +80,6 @@ public interface IBusiness {
     Optional<Customer> getCustomerById(Long idCustomer);
 
 
-    /*ALE*/
-    Optional<Order> getOrderById(Long idOrder);
-
     /**
      * Saves an order.
      *

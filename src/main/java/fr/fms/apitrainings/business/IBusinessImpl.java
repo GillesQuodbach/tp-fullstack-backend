@@ -136,8 +136,6 @@ public class IBusinessImpl implements IBusiness {
         return customerRepository.findById(idCustomer);
     }
 
-    /*ALE*/
-    public Optional<Order> getOrderById(Long idOrder) { return orderRepository.findById(idOrder); }
     /**
      * Saves an order.
      *

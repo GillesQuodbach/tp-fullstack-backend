@@ -136,11 +136,11 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		orderRepository.save(order6);
 		orderRepository.save(order7);
 
-		Training training1 = new Training(null, "sport", "Formation Sport", 150, 1, 40, "défaut.jpg", true, anglais);
+		Training training1 = new Training(null, "sport", "Formation Sport", 150, 1, 40, "default.jpg", true, anglais);
 		trainingRepository.save(training1);
-		Training training2 = new Training(null, "cuisine", "Formation Cuisine", 200, 1, 40, "défaut.jpg", true, cuisine);
+		Training training2 = new Training(null, "cuisine", "Formation Cuisine", 200, 1, 40, "default.jpg", true, cuisine);
 		trainingRepository.save(training2);
-		Training training3 = new Training(null, "tennis", "Formation Sport", 500, 1, 40, "défaut.jpg", true, anglais);
+		Training training3 = new Training(null, "tennis", "Formation Sport", 500, 1, 40, "default.jpg", true, anglais);
 		trainingRepository.save(training3);
 
 		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training1));
