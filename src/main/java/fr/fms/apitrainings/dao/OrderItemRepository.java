@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Provides CRUD operations and other query methods for OrderItem objects.
  */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+
 }
