@@ -38,6 +38,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 	private OrderRepository orderRepository;
 
 	@Autowired
+	private OrderItemRepository orderItemRepository;
+
+	@Autowired
 	private AccountService accountService;
 
 	@Autowired
@@ -75,6 +78,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 		List<Training> trainingsList = new ArrayList<>();
 		List<Order> ordersList = new ArrayList<>();
+		List<OrderItem> orderItem = new ArrayList<>();
 
 		Category informatique = new Category("Informatique", trainingsList);
 		Category cuisine = new Category("Cuisine", trainingsList);
@@ -131,6 +135,17 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		orderRepository.save(order5);
 		orderRepository.save(order6);
 		orderRepository.save(order7);
+
+		Training training1 = new Training(null, "sport", "Formation Sport", 150, 1, 40, "default.jpg", true, anglais);
+		trainingRepository.save(training1);
+		Training training2 = new Training(null, "cuisine", "Formation Cuisine", 200, 1, 40, "default.jpg", true, cuisine);
+		trainingRepository.save(training2);
+		Training training3 = new Training(null, "tennis", "Formation Sport", 500, 1, 40, "default.jpg", true, anglais);
+		trainingRepository.save(training3);
+
+		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training2));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training3));
 	}
 
 	private void generateUsersRoles(){

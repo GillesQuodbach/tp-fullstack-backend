@@ -157,4 +157,10 @@ public class IBusinessImpl implements IBusiness {
     public OrderItem saveOrderItem(OrderItem orderItem) {
         return orderItemRepository.save(orderItem);
     }
+
+    /*ALE*/
+    @Override
+    public List<OrderItem> getOrderItemByOrderId(Long id) {return orderItemRepository.findByOrderId(id); }
 }
+
+

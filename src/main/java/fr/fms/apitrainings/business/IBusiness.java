@@ -79,6 +79,7 @@ public interface IBusiness {
      */
     Optional<Customer> getCustomerById(Long idCustomer);
 
+
     /**
      * Saves an order.
      *
@@ -94,4 +95,7 @@ public interface IBusiness {
      * @return the saved order item.
      */
     OrderItem saveOrderItem(OrderItem orderItem);
+
+    /*ALE*/
+    List<OrderItem> getOrderItemByOrderId(Long id);
 }
