@@ -98,4 +98,10 @@ public interface IBusiness {
 
     /*ALE*/
     List<OrderItem> getOrderItemByOrderId(Long id);
+
+    void deleteOrderItem(Long id);
+
+    void deleteOrderItemByOrderId(Long orderId);
+
+    void deleteOrderById(Long orderId);
 }

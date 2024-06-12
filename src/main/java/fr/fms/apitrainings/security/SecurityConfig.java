@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/orders/{id}/status").hasAnyAuthority("ADMIN", "ORDER_MANAGER")
                 .antMatchers(HttpMethod.POST,"/download").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/download/{id}").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST,"/categoryy").permitAll();
+                .antMatchers(HttpMethod.POST,"/categoryy").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/ordersitems/{id}").permitAll();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));

@@ -5,6 +5,7 @@ import fr.fms.apitrainings.entities.*;
 import fr.fms.apitrainings.mappers.CategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -161,6 +162,15 @@ public class IBusinessImpl implements IBusiness {
     /*ALE*/
     @Override
     public List<OrderItem> getOrderItemByOrderId(Long id) {return orderItemRepository.findByOrderId(id); }
+
+    @Override
+    public void deleteOrderItem(Long id) { orderItemRepository.deleteById(id);}
+
+    @Override
+    @Transactional
+    public void deleteOrderItemByOrderId(Long id) { orderItemRepository.deleteByOrderId(id); }
+
+    public void deleteOrderById(Long id) { orderRepository.deleteById(id); }
 }
 
 

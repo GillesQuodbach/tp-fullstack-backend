@@ -25,7 +25,6 @@ public class OrderController {
     private IBusinessImpl iBusiness;
 
 
-
     /**
      * Endpoint for saving a customer.
      *
@@ -69,6 +68,7 @@ public class OrderController {
     public List<Order> getAllOrders(){
         return iBusiness.getOrders();
     }
+
     /**
      * Endpoint for saving an order.
      *
@@ -109,6 +109,11 @@ public class OrderController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("/ordersitems/{id}")
+    public void deleteOrderItem(@PathVariable("id") Long id) {
+        iBusiness.deleteOrderItemByOrderId(id);
+    }
+
 
     /*ALE*/
     @GetMapping("/ordersitems/{id}")
@@ -126,6 +131,9 @@ public class OrderController {
 
         return ResponseEntity.ok(updatedOrder);
     }
+
+    @DeleteMapping("/orders/{id}")
+    public void deleteOrderById(@PathVariable("id") Long id) { iBusiness.deleteOrderById(id); }
 
 }
 

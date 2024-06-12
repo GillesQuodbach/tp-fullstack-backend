@@ -143,9 +143,18 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		Training training3 = new Training(null, "tennis", "Formation Sport", 500, 1, 40, "default.jpg", true, anglais);
 		trainingRepository.save(training3);
 
-		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 150, order2, training1));
 		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training2));
-		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training3));
+		orderItemRepository.save(new OrderItem(null, 5, 500, order2, training3));
+		orderItemRepository.save(new OrderItem(null, 5, 150, order3, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order4, training2));
+		orderItemRepository.save(new OrderItem(null, 5, 500, order4, training3));
+		orderItemRepository.save(new OrderItem(null, 5, 150, order5, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order5, training2));
+		orderItemRepository.save(new OrderItem(null, 5, 500, order5, training3));
+		orderItemRepository.save(new OrderItem(null, 5, 150, order6, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order7, training2));
+		orderItemRepository.save(new OrderItem(null, 5, 500, order7, training3));
 	}
 
 	private void generateUsersRoles(){
@@ -159,6 +168,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 
 		accountService.addRoleToUser("gilles", "ADMIN");
 		accountService.addRoleToUser("gilles", "USER");
+		accountService.addRoleToUser("gilles", "ORDER_MANAGER");
 		accountService.addRoleToUser("anonymous", "USER");
 		accountService.addRoleToUser("alejandra", "ORDER_MANAGER");
 		accountService.addRoleToUser("alejandra", "USER");
