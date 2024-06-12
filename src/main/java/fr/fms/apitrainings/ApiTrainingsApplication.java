@@ -123,11 +123,11 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		Customer customer2 = new Customer(null, "Lary", "Craft", "12 rue du manoir", "0403158698", "laracroft@gmail.com", ordersList);
 		customerRepository.save(customer2);
 		Order order2 = new Order(null, 200.0, customer2, "En cours");
-		Order order3 = new Order(null, 350.0, customer2, "En cours");
-		Order order4 = new Order(null, 1000.0, customer2, "En cours");
-		Order order5 = new Order(null, 555.0, customer2, "En cours");
-		Order order6 = new Order(null, 675.0, customer2, "En cours");
-		Order order7 = new Order(null, 110.0, customer2, "En cours");
+		Order order3 = new Order(null, 350.0, customer2, "Validée");
+		Order order4 = new Order(null, 1000.0, customer2, "Annulée");
+		Order order5 = new Order(null, 555.0, customer2, "Payé");
+		Order order6 = new Order(null, 675.0, customer2, "Non payé");
+		Order order7 = new Order(null, 110.0, customer2, "Non payé");
 
 		orderRepository.save(order2);
 		orderRepository.save(order3);
@@ -143,6 +143,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
 		Training training3 = new Training(null, "tennis", "Formation Sport", 500, 1, 40, "default.jpg", true, anglais);
 		trainingRepository.save(training3);
 
+		orderItemRepository.save(new OrderItem(null, 5, 150, order, training1));
+		orderItemRepository.save(new OrderItem(null, 5, 200, order, training2));
+		orderItemRepository.save(new OrderItem(null, 5, 500, order, training3));
 		orderItemRepository.save(new OrderItem(null, 5, 150, order2, training1));
 		orderItemRepository.save(new OrderItem(null, 5, 200, order2, training2));
 		orderItemRepository.save(new OrderItem(null, 5, 500, order2, training3));
